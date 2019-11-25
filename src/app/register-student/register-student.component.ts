@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from "@angular/forms";
-import { StudentRegisterServiceService } from "../common/service/student-register-service.service";
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { StudentRegisterServiceService } from '../common/service/student-register-service.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-register-student',
@@ -9,23 +10,27 @@ import { StudentRegisterServiceService } from "../common/service/student-registe
 })
 export class RegisterStudentComponent implements OnInit {
 
-  private grades: string[] = [];
-  private sections: string[] = [];
+  private grades: string[];
+  private sections: string[];
 
-  private registerStudentForm = this.fb.group({
-    name: [''],
-    grade: [''],
-    section: ['']
-  });
-
-  private classroomNames: { grade: string, section: string[] };
+  private registerStudentForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private studentRegisterService: StudentRegisterServiceService) {
+              private studentRegisterService: StudentRegisterServiceService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.fetchClassroomGrades();
+    this.initRegisterStudentForm();
+  }
+
+  initRegisterStudentForm() {
+    this.registerStudentForm = this.fb.group({
+      name: [''],
+      grade: [''],
+      section: ['']
+    });
   }
 
   onRegisterStudent() {
@@ -34,11 +39,15 @@ export class RegisterStudentComponent implements OnInit {
         name: this.registerStudentForm.get('name').value,
         grade: this.registerStudentForm.get('grade').value,
         section: this.registerStudentForm.get('section').value
-      }
+      };
       this.studentRegisterService.registerStudent(studentDetails)
         .subscribe(response => {
+          this.snackBar.open(`Student Registered Successfully!!`, 'DISMISS', {
+            duration: 2000,
+          });
           console.log(response);
-        })
+          this.initRegisterStudentForm();
+        });
     }
   }
 
@@ -46,14 +55,14 @@ export class RegisterStudentComponent implements OnInit {
     this.studentRegisterService.fetchClassroomGrades()
       .subscribe((data: string[]) => {
         this.grades = data;
-      })
+      });
   }
 
   onGradeSelect(grade: string) {
     this.studentRegisterService.fetchSectionByGrade(grade)
       .subscribe((data: string[]) => {
-        this.sections  = data;
-      })
+        this.sections = data;
+      });
   }
 
 }

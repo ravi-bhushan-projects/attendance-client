@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterStudentRoutingModule } from './register-student-routing.module';
 import { RegisterStudentComponent } from './register-student.component';
-import { MatCardModule } from "@angular/material/card";
-import { ReactiveFormsModule } from "@angular/forms";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatOptionModule } from "@angular/material/core";
-import { MatButtonModule } from "@angular/material/button";
-import { MatSelectModule } from "@angular/material/select";
-
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [RegisterStudentComponent],
@@ -23,7 +23,9 @@ import { MatSelectModule } from "@angular/material/select";
     MatInputModule,
     MatOptionModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ]
 })
-export class RegisterStudentModule { }
+export class RegisterStudentModule {
+}
