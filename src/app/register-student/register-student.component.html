@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-header>Register Student</mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="registerStudentForm" (ngSubmit)="onRegisterStudent()">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Grade</mat-label>
+        <mat-select formControlName="grade">
+          <mat-option *ngFor="let grade of grades" [value]="grade" (onSelectionChange)="onGradeSelect(grade)">{{grade}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Section</mat-label>
+        <mat-select formControlName="section">
+          <mat-option *ngFor="let section of sections" [value]="section">{{section}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="primary">Register</button>
+    </form>
+  </mat-card-content>
+</mat-card>
