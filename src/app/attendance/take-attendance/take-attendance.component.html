@@ -1,0 +1,11 @@
+<div class="container">
+  <mat-selection-list #students>
+    <mat-list-option *ngFor="let student of students">
+      {{student}}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <p>
+    Total Students Present: {{students.selectedOptions.selected.length}}
+  </p>
+</div>
