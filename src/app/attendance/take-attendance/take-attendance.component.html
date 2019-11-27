@@ -1,11 +1,13 @@
 <div class="container">
-  <mat-selection-list #students>
-    <mat-list-option *ngFor="let student of students">
-      {{student}}
+  <mat-selection-list #studentsSelectionList>
+    <mat-list-option *ngFor="let student of students" [value]="student">
+      {{student.name}}
     </mat-list-option>
   </mat-selection-list>
 
   <p>
-    Total Students Present: {{students.selectedOptions.selected.length}}
+    Total Students Present: {{studentsSelectionList.selectedOptions.selected.length}} out of {{students.length}}
   </p>
+
+  <button mat-raised-button color="primary" (click)="onAttendanceSubmit(studentsSelectionList.selectedOptions.selected)">Submit</button>
 </div>
