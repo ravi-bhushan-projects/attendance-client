@@ -17,12 +17,4 @@ export class StudentRegisterServiceService {
   getClassroomNames() {
     return this.httpClient.get('/api/classroom/names');
   }
-
-  fetchClassroomGrades() {
-    return this.httpClient.get('/api/classroom/grade');
-  }
-
-  fetchSectionByGrade(grade: string) {
-    return this.httpClient.get(`/api/classroom/grade/${grade}`);
-  }
 }

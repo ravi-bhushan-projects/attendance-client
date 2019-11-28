@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { StudentRegisterServiceService } from '../common/service/student-register-service.service';
 import { MatSnackBar } from '@angular/material';
+import { StudentService } from "../common/service/student.service";
 
 @Component({
   selector: 'app-register-student',
@@ -17,6 +18,7 @@ export class RegisterStudentComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private studentRegisterService: StudentRegisterServiceService,
+              private studentService: StudentService,
               private snackBar: MatSnackBar) {
   }
 
@@ -52,14 +54,14 @@ export class RegisterStudentComponent implements OnInit {
   }
 
   fetchClassroomGrades() {
-    this.studentRegisterService.fetchClassroomGrades()
+    this.studentService.fetchClassroomGrades()
       .subscribe((data: string[]) => {
         this.grades = data;
       });
   }
 
   onGradeSelect(grade: string) {
-    this.studentRegisterService.fetchSectionByGrade(grade)
+    this.studentService.fetchSectionByGrade(grade)
       .subscribe((data: string[]) => {
         this.sections = data;
       });

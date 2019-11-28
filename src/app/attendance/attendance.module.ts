@@ -4,7 +4,14 @@ import { CommonModule } from '@angular/common';
 import { AttendanceRoutingModule } from './attendance-routing.module';
 import { AttendanceComponent } from './attendance.component';
 import { TakeAttendanceComponent } from './take-attendance/take-attendance.component';
-import { MatButtonModule, MatListModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatListModule,
+  MatSelectModule,
+  MatSnackBarModule
+} from '@angular/material';
 
 
 @NgModule({
@@ -13,7 +20,12 @@ import { MatButtonModule, MatListModule } from '@angular/material';
     CommonModule,
     AttendanceRoutingModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSnackBarModule
   ]
 })
-export class AttendanceModule { }
+export class AttendanceModule {
+}

@@ -1,4 +1,18 @@
 <div class="container">
+  <mat-form-field>
+    <mat-label>Grade</mat-label>
+    <mat-select formControlName="grade" #grade>
+      <mat-option *ngFor="let grade of grades" [value]="grade"
+                  (onSelectionChange)="onGradeSelect(grade)">{{grade}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Section</mat-label>
+    <mat-select formControlName="section">
+      <mat-option *ngFor="let section of sections" [value]="section"
+      (onSelectionChange)="onSectionSelected(grade.selected.value, section)">{{section}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-selection-list #studentsSelectionList>
     <mat-list-option *ngFor="let student of students" [value]="student">
       {{student.name}}
@@ -9,5 +23,7 @@
     Total Students Present: {{studentsSelectionList.selectedOptions.selected.length}} out of {{students.length}}
   </p>
 
-  <button mat-raised-button color="primary" (click)="onAttendanceSubmit(studentsSelectionList.selectedOptions.selected)">Submit</button>
+  <button mat-raised-button color="primary"
+          (click)="onAttendanceSubmit(studentsSelectionList.selectedOptions.selected)">Submit
+  </button>
 </div>

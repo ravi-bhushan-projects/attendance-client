@@ -12,6 +12,14 @@ export class StudentService {
 
   constructor(private httpClient: HttpClient) { }
 
+  fetchClassroomGrades() {
+    return this.httpClient.get('/api/classroom/grade');
+  }
+
+  fetchSectionByGrade(grade: string) {
+    return this.httpClient.get(`/api/classroom/grade/${grade}`);
+  }
+
   fetchStudents(classroom: ClassroomModel) {
     return this.httpClient.get<StudentModel[]>(`/api/student/${classroom.grade}/${classroom.section}`);
   }

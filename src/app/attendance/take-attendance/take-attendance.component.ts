@@ -4,6 +4,7 @@ import { StudentService } from "../../common/service/student.service";
 import { ClassroomModel } from "../../common/model/ClassroomModel";
 import { MatListOption } from "@angular/material/list";
 import { AttendanceService } from "../../common/service/attendance.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-take-attendance',
@@ -13,20 +14,16 @@ import { AttendanceService } from "../../common/service/attendance.service";
 export class TakeAttendanceComponent implements OnInit {
 
   private students: StudentModel[] = [];
-  private classroom: ClassroomModel = {
-    grade: '1',
-    section: 'A'
-  };
-  private tests: string[] = ["a", "b", "c"];
+  private grades: string[];
+  private sections: string[];
 
   constructor(private studentService: StudentService,
-              private attendanceService: AttendanceService) {
+              private attendanceService: AttendanceService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.studentService.fetchStudents(this.classroom).subscribe(data => {
-      this.students = data;
-    })
+    this.fetchClassroomGrades();
   }
 
   onAttendanceSubmit(selectedStudentsMatList: MatListOption[]) {
@@ -38,10 +35,37 @@ export class TakeAttendanceComponent implements OnInit {
     selectedStudent.forEach(student => {
       selectedStudentRegistrationNumber.push(student.registrationNumber);
     });
-    this.attendanceService.saveAttendance(selectedStudentRegistrationNumber)
+    this.attendanceService.saveAttendanceByRegistration(selectedStudentRegistrationNumber)
       .subscribe(data => {
+        this.snackBar.open(`Attendance Taken Successfully!!`, 'DISMISS', {
+          duration: 2000,
+        });
         console.log(data);
-      })
+      });
   }
 
+  onGradeSelect(grade: string) {
+    this.studentService.fetchSectionByGrade(grade)
+      .subscribe((data: string[]) => {
+        this.sections = data;
+      });
+  }
+
+  fetchClassroomGrades() {
+    this.studentService.fetchClassroomGrades()
+      .subscribe((data: string[]) => {
+        this.grades = data;
+      });
+  }
+
+  onSectionSelected(grade: string, section: string) {
+    const classroom: ClassroomModel = {
+      grade: grade,
+      section: section
+    };
+    this.studentService.fetchStudents(classroom)
+      .subscribe(data => {
+        this.students = data;
+      });
+  }
 }
