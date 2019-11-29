@@ -4,8 +4,10 @@ import { CommonModule } from '@angular/common';
 import { AttendanceRoutingModule } from './attendance-routing.module';
 import { AttendanceComponent } from './attendance.component';
 import { TakeAttendanceComponent } from './take-attendance/take-attendance.component';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {
   MatButtonModule,
+  MatDatepickerModule,
   MatFormFieldModule,
   MatInputModule,
   MatListModule,
@@ -24,7 +26,9 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ]
 })
 export class AttendanceModule {
